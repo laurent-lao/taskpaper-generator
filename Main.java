@@ -13,8 +13,11 @@ public class Main {
 
 		// Prompt user for which template to use
 		// When creating more templates, add the run option to the runTemplate()
-		int choice = keyIn.nextInt();
-		runTemplate(choice);
+		boolean validChoice = false;
+		do {
+			int choice = keyIn.nextInt();
+			validChoice = runTemplate(choice);
+		} while (!validChoice);
 
 
 
@@ -31,21 +34,16 @@ public class Main {
 				"\n\tInput option> ");
 	}
 
-	public static void runTemplate(int choice)
+	public static boolean runTemplate(int choice)
 	{
-		boolean correctChoice = false;
-		while (!correctChoice) {
-
-			switch (choice) {
-				case 1:
-					createChapterTasks();
-					correctChoice = true;
-					break;
-				default:
-					System.out.print("Wrong choice, try again > ");
-					break;
+		switch (choice) {
+			case 1:
+				createChapterTasks();
+				return true;
+			default:
+				System.out.print("Wrong choice, try again > ");
+				return false;
 			}
-		}
 	}
 
 	// Creates a list of tasks for the chapters to come
@@ -72,11 +70,13 @@ public class Main {
 		{
 			// Prompt the user for the Title of the Chapter
 			System.out.print("What's the title of the Chapter " + (i+1) + "? > ");
-			chapterTasks[i][0] = new Task(1, "Study", ((i+1) + ": " + keyInString.nextLine()));
+			String chapterTitle = keyInString.nextLine();
+			chapterTasks[i][0] = new Task(1, "Study", ((i+1) + ": " + chapterTitle));
 			chapterTasks[i][0].setTaskIsParallel(false);
 
 			int subChapterCounter = 1;
-			for (int j = 1; j < 100; j++, subChapterCounter++)
+			int arrayAt = 0;
+			for (int j = 1; j < 100; j++, subChapterCounter++, arrayAt = j)
 			{
 				// Prompt the user for the Title of the Sub Chapter
 				System.out.print("What's the title of the sub-Chapter #" + (i+1) + "." + subChapterCounter + "?" +
@@ -90,11 +90,18 @@ public class Main {
 					j++;
 					chapterTasks[i][j] = new Task(3, "Annotate", ((i + 1) + "." + subChapterCounter + ": " + subchapterTitle));
 					j++;
-					chapterTasks[i][j] = new Task(3, "Analyze Annotation: ", ((i + 1) + "." + subChapterCounter + ": " + subchapterTitle));
+					chapterTasks[i][j] = new Task(3, "Analyze Annotation", ((i + 1) + "." + subChapterCounter + ": " + subchapterTitle));
 				}
 				else
 					break;
 			}
+
+			chapterTasks[i][arrayAt] = new Task(2, "Review", ((i + 1) + ": " + chapterTitle));
+			chapterTasks[i][arrayAt].setTaskIsParallel(false);
+			chapterTasks[i][arrayAt + 1] = new Task(3, "Consolidate Annotations", ((i + 1) + ": " + chapterTitle));
+			chapterTasks[i][arrayAt + 2] = new Task(3, "Create Flashcards", ((i + 1) + ": " + chapterTitle));
+
+
 		}
 
 		// Printing all the Chapters info
