@@ -8,7 +8,7 @@ Each task is an object of the Task class. The class includes a toString method t
 
 ### Reading Textbooks
 This template creates TaskPaper tasks for a textbook
-Here's an [example](SOEN_228_textbook_example.text)
+Here's an [example](SOEN_228_textbook_example.txt)
 
 ## Changelog
 
