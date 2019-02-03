@@ -19,8 +19,6 @@ public class Main {
 			validChoice = runTemplate(choice);
 		} while (!validChoice);
 
-
-
 		// Closing the Scanners
 		keyIn.close();
 		keyInString.close();
@@ -73,6 +71,7 @@ public class Main {
 			String chapterTitle = keyInString.nextLine();
 			chapterTasks[i][0] = new Task(1, "Study", ((i+1) + ": " + chapterTitle));
 			chapterTasks[i][0].setTaskIsParallel(false);
+			chapterTasks[i][0].setTaskIsAutodone(true);
 
 			int subChapterCounter = 1;
 			int arrayAt = 0;
@@ -85,6 +84,7 @@ public class Main {
 				if (!subchapterTitle.equalsIgnoreCase("stop")) {
 					chapterTasks[i][j] = new Task(2, "Study", ((i + 1) + "." + subChapterCounter + ": " + subchapterTitle));
 					chapterTasks[i][j].setTaskIsParallel(false);
+					chapterTasks[i][j].setTaskIsAutodone(true);
 					j++;
 					chapterTasks[i][j] = new Task(3, "Read", ((i + 1) + "." + subChapterCounter + ": " + subchapterTitle));
 					j++;
@@ -98,6 +98,7 @@ public class Main {
 
 			chapterTasks[i][arrayAt] = new Task(2, "Review", ((i + 1) + ": " + chapterTitle));
 			chapterTasks[i][arrayAt].setTaskIsParallel(false);
+			chapterTasks[i][arrayAt].setTaskIsAutodone(true);
 			chapterTasks[i][arrayAt + 1] = new Task(3, "Consolidate Annotations", ((i + 1) + ": " + chapterTitle));
 			chapterTasks[i][arrayAt + 2] = new Task(3, "Create Flashcards", ((i + 1) + ": " + chapterTitle));
 
